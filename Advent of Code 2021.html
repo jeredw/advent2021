@@ -498,6 +498,23 @@
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#day-22">
+   Day 22
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id41">
+     Part 1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id42">
+     Part 2
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
             </nav>
@@ -524,9 +541,6 @@ terse array language from the 60s. You may have seen its memeable program for
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><span style="white-space:pre; font-family: monospace">Rebuilding user command cache... done
-</span></div></div>
 </div>
 <p>A few people expressed interest, so about halfway through December I decided
 to try publishing a Jupyter notebook with my solutions in literate programming
@@ -4865,6 +4879,239 @@ recursion.</p>
 <div class="cell_output docutils container">
 <div class="output text_html"><span style="white-space:pre; font-family: monospace">116741133558209
 </span></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="day-22">
+<h2>Day 22<a class="headerlink" href="#day-22" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://adventofcode.com/2021/day/22">Puzzle link</a></p>
+<p>3d bitmap wrangling today.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="sr">]</span><span class="nv">dinput</span>
+<span class="nv">parse_cuboid</span><span class="kd">←</span><span class="kt">{</span>
+  <span class="c1">⍝ extract on/off and numbers from &#39;on x=-20..26,y=-36..17,z=-47..7&#39;</span>
+  <span class="c1">⍝ return 0|1 xmin xmax ymin ymax zmin zmax</span>
+  <span class="nv">xs</span><span class="kd">←</span><span class="s1">&#39; &#39;</span><span class="p">(</span><span class="o">≠⊆⊢</span><span class="p">)(</span><span class="s1">&#39;(on|off) x=(-?\d+)..(-?\d+),y=(-?\d+)..(-?\d+),z=(-?\d+)..(-?\d+)&#39;</span><span class="nf">⎕R</span><span class="s1">&#39;\1 \2 \3 \4 \5 \6 \7&#39;</span><span class="p">)</span><span class="o">⊢</span><span class="bp">⍵</span>
+  <span class="p">((</span><span class="o">⊃</span><span class="p">(</span><span class="m">1</span><span class="o">↑</span><span class="nv">xs</span><span class="p">))</span><span class="o">≡</span><span class="s1">&#39;on&#39;</span><span class="p">)</span><span class="o">,</span><span class="p">(</span><span class="o">⍎</span><span class="na">¨</span><span class="m">1</span><span class="o">↓</span><span class="nv">xs</span><span class="p">)</span>
+<span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="vg">⎕</span><span class="kd">←</span><span class="nv">test22</span><span class="kd">←</span><span class="nv">parse_cuboid</span><span class="na">¨</span><span class="o">⊃</span><span class="nf">⎕NGET</span> <span class="s1">&#39;day22-test.txt&#39;</span> <span class="m">1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌─────────────────────┬──────────────────────┬──────────────────────┬──────────
+│1 ¯20 26 ¯36 17 ¯47 7│1 ¯20 33 ¯21 23 ¯26 28│1 ¯22 28 ¯29 23 ¯38 16│1 ¯46 7 ¯6
+└─────────────────────┴──────────────────────┴──────────────────────┴──────────
+
+      ──────────┬────────────────────┬────────────────────┬────────────────────
+       46 ¯50 ¯1│1 ¯49 1 ¯3 46 ¯24 28│1 2 47 ¯22 22 ¯23 27│1 ¯27 23 ¯28 26 ¯21 
+      ──────────┴────────────────────┴────────────────────┴────────────────────
+
+      ──┬───────────────────┬─────────────────────┬──────────────────────┬─────
+      29│1 ¯39 5 ¯6 47 ¯3 44│1 ¯30 21 ¯8 43 ¯13 34│1 ¯22 26 ¯27 20 ¯29 19│0 ¯48
+      ──┴───────────────────┴─────────────────────┴──────────────────────┴─────
+
+      ──────────────────┬────────────────────┬────────────────────────┬────────
+       ¯32 26 41 ¯47 ¯37│1 ¯12 35 6 50 ¯50 ¯2│0 ¯48 ¯32 ¯32 ¯16 ¯15 ¯5│1 ¯18 26
+      ──────────────────┴────────────────────┴────────────────────────┴────────
+
+      ─────────────┬───────────────────────┬─────────────────────┬─────────────
+       ¯33 15 ¯7 46│0 ¯40 ¯22 ¯38 ¯28 23 41│1 ¯16 35 ¯41 10 ¯47 6│0 ¯32 ¯23 11 
+      ─────────────┴───────────────────────┴─────────────────────┴─────────────
+
+      ────────┬─────────────────────┬────────────────────┬────────────────────┬
+      30 ¯14 3│1 ¯49 ¯5 ¯3 45 ¯29 18│0 18 30 ¯20 ¯8 ¯3 13│1 ¯41 9 ¯7 43 ¯33 15│
+      ────────┴─────────────────────┴────────────────────┴────────────────────┴
+
+      ─────────────────────────────────────────┬───────────────────────────────
+      1 ¯54112 ¯39298 ¯85059 ¯49293 ¯27449 7877│1 967 23432 45373 81175 27513 5
+      ─────────────────────────────────────────┴───────────────────────────────
+
+      ────┐
+      3682│
+      ────┘
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">data22</span><span class="kd">←</span><span class="nv">parse_cuboid</span><span class="na">¨</span><span class="o">⊃</span><span class="nf">⎕NGET</span> <span class="s1">&#39;day22-input.txt&#39;</span> <span class="m">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id41">
+<h3>Part 1<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h3>
+<p>Count the “on” cubes in the volume ¯50≤x≤50, ¯50≤y≤50, ¯50≤z≤50.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="sr">]</span><span class="nv">dinput</span>
+<span class="nv">day22_1</span><span class="kd">←</span><span class="kt">{</span>
+  <span class="c1">⍝ we&#39;ll make a big 3d bitmap and just count</span>
+  <span class="nv">cubes</span><span class="kd">←</span><span class="m">101</span> <span class="m">101</span> <span class="m">101</span><span class="o">⍴</span><span class="m">0</span>
+  <span class="nv">_</span><span class="kd">←</span><span class="kt">{</span>
+    <span class="nv">bit</span> <span class="nv">x0</span> <span class="nv">x1</span> <span class="nv">y0</span> <span class="nv">y1</span> <span class="nv">z0</span> <span class="nv">z1</span><span class="kd">←</span><span class="bp">⍵</span>
+    <span class="p">(</span><span class="nv">x1</span><span class="o">&lt;</span><span class="m">¯50</span><span class="p">)</span><span class="o">∨</span><span class="p">(</span><span class="nv">x0</span><span class="o">&gt;</span><span class="m">50</span><span class="p">)</span><span class="bp">:</span><span class="m">0</span>
+    <span class="p">(</span><span class="nv">y1</span><span class="o">&lt;</span><span class="m">¯50</span><span class="p">)</span><span class="o">∨</span><span class="p">(</span><span class="nv">y0</span><span class="o">&gt;</span><span class="m">50</span><span class="p">)</span><span class="bp">:</span><span class="m">0</span>
+    <span class="p">(</span><span class="nv">z1</span><span class="o">&lt;</span><span class="m">¯50</span><span class="p">)</span><span class="o">∨</span><span class="p">(</span><span class="nv">z0</span><span class="o">&gt;</span><span class="m">50</span><span class="p">)</span><span class="bp">:</span><span class="m">0</span>
+    <span class="nv">cuboid</span><span class="kd">←</span><span class="p">(</span><span class="o">⊂</span><span class="p">(</span><span class="m">50</span><span class="o">+</span><span class="nv">x0</span><span class="p">)(</span><span class="m">50</span><span class="o">+</span><span class="nv">y0</span><span class="p">)(</span><span class="m">50</span><span class="o">+</span><span class="nv">z0</span><span class="p">))</span><span class="o">+</span><span class="p">(</span><span class="o">⍳</span><span class="p">((</span><span class="nv">x1</span><span class="o">-</span><span class="nv">x0</span><span class="p">)</span><span class="o">+</span><span class="m">1</span><span class="p">)((</span><span class="nv">y1</span><span class="o">-</span><span class="nv">y0</span><span class="p">)</span><span class="o">+</span><span class="m">1</span><span class="p">)((</span><span class="nv">z1</span><span class="o">-</span><span class="nv">z0</span><span class="p">)</span><span class="o">+</span><span class="m">1</span><span class="p">))</span>
+    <span class="nv">cubes</span><span class="o">⊢</span><span class="kd">←</span><span class="nv">bit</span><span class="na">@</span><span class="nv">cuboid</span><span class="o">⊢</span><span class="nv">cubes</span>
+    <span class="m">0</span>
+  <span class="kt">}</span><span class="na">¨</span><span class="bp">⍵</span>
+  <span class="o">+</span><span class="na">/</span><span class="o">,</span><span class="nv">cubes</span>
+<span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">day22_1</span> <span class="nv">test22</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">590784
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">day22_1</span> <span class="nv">data22</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">602574
+</span></div></div>
+</div>
+</div>
+<div class="section" id="id42">
+<h3>Part 2<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h3>
+<p>Count all the “on” cubes.  We get a new test case.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">test22_2</span><span class="kd">←</span><span class="nv">parse_cuboid</span><span class="na">¨</span><span class="o">⊃</span><span class="nf">⎕NGET</span> <span class="s1">&#39;day22-test2.txt&#39;</span> <span class="m">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">↑</span><span class="p">(</span><span class="o">⌊</span><span class="na">/</span><span class="nv">test22_2</span><span class="p">)</span><span class="o">,⌈</span><span class="na">/</span><span class="nv">test22_2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">0 ¯120100 ¯40997 ¯124565 ¯50804 ¯121762 ¯30197
+1   55694 120875   50097 118853   54442 119054
+</span></div></div>
+</div>
+<p>The volume is about 250k^3 which is too big for a bitmap.
+We could compute new cuboids for each cuboid-cuboid union or
+intersection, and keep a running list. Or we could do the
+same for rectangles on 250k slices. But I’d prefer to use a
+subdivision algorithm instead if at all possible so I don’t
+have to think about all the weird cases.</p>
+<p>We’ll need to intersect cuboids with aribtrary volumes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="sr">]</span><span class="nv">dinput</span>
+<span class="nv">intersect_cuboids_with_volume</span><span class="kd">←</span><span class="kt">{</span>
+  <span class="c1">⍝ all ranges are closed [x0,x1] [y0,y1] [z0,z1]</span>
+  <span class="nv">vx0</span> <span class="nv">vx1</span> <span class="nv">vy0</span> <span class="nv">vy1</span> <span class="nv">vz0</span> <span class="nv">vz1</span> <span class="nv">cuboids</span><span class="kd">←</span><span class="bp">⍵</span>
+  <span class="nv">rs</span><span class="kd">←</span><span class="kt">{</span>
+    <span class="nv">bit</span> <span class="nv">x0</span> <span class="nv">x1</span> <span class="nv">y0</span> <span class="nv">y1</span> <span class="nv">z0</span> <span class="nv">z1</span><span class="kd">←</span><span class="bp">⍵</span>
+    <span class="p">(</span><span class="nv">x1</span><span class="o">&lt;</span><span class="nv">vx0</span><span class="p">)</span><span class="o">∨</span><span class="p">(</span><span class="nv">x0</span><span class="o">&gt;</span><span class="nv">vx1</span><span class="p">)</span><span class="bp">:</span> <span class="m">0</span>
+    <span class="p">(</span><span class="nv">y1</span><span class="o">&lt;</span><span class="nv">vy0</span><span class="p">)</span><span class="o">∨</span><span class="p">(</span><span class="nv">y0</span><span class="o">&gt;</span><span class="nv">vy1</span><span class="p">)</span><span class="bp">:</span> <span class="m">0</span>
+    <span class="p">(</span><span class="nv">z1</span><span class="o">&lt;</span><span class="nv">vz0</span><span class="p">)</span><span class="o">∨</span><span class="p">(</span><span class="nv">z0</span><span class="o">&gt;</span><span class="nv">vz1</span><span class="p">)</span><span class="bp">:</span> <span class="m">0</span>
+    <span class="c1">⍝ max start, min end per axis</span>
+    <span class="nv">xs</span><span class="kd">←</span><span class="p">(</span><span class="o">⌈</span><span class="na">/</span><span class="nv">x0</span> <span class="nv">vx0</span><span class="p">)</span> <span class="p">(</span><span class="o">⌊</span><span class="na">/</span><span class="nv">x1</span> <span class="nv">vx1</span><span class="p">)</span>
+    <span class="nv">ys</span><span class="kd">←</span><span class="p">(</span><span class="o">⌈</span><span class="na">/</span><span class="nv">y0</span> <span class="nv">vy0</span><span class="p">)</span> <span class="p">(</span><span class="o">⌊</span><span class="na">/</span><span class="nv">y1</span> <span class="nv">vy1</span><span class="p">)</span>
+    <span class="nv">zs</span><span class="kd">←</span><span class="p">(</span><span class="o">⌈</span><span class="na">/</span><span class="nv">z0</span> <span class="nv">vz0</span><span class="p">)</span> <span class="p">(</span><span class="o">⌊</span><span class="na">/</span><span class="nv">z1</span> <span class="nv">vz1</span><span class="p">)</span>
+    <span class="nv">bit</span><span class="o">,</span><span class="nv">xs</span><span class="o">,</span><span class="nv">ys</span><span class="o">,</span><span class="nv">zs</span>
+  <span class="kt">}</span><span class="na">¨</span><span class="nv">cuboids</span>
+  <span class="c1">⍝ filter only overlapping cuboids</span>
+  <span class="p">(</span><span class="m">0</span><span class="na">∘</span><span class="o">≢</span><span class="na">¨</span><span class="nv">rs</span><span class="p">)</span><span class="na">/</span><span class="nv">rs</span>
+<span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">intersect_cuboids_with_volume</span> <span class="m">¯10</span> <span class="m">10</span> <span class="m">¯10</span> <span class="m">10</span> <span class="m">¯10</span> <span class="m">10</span> <span class="p">(</span><span class="o">⊂</span><span class="m">0</span> <span class="m">0</span> <span class="m">5</span> <span class="m">0</span> <span class="m">5</span> <span class="m">0</span> <span class="m">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌─────────────┐
+│0 0 5 0 5 0 5│
+└─────────────┘
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">intersect_cuboids_with_volume</span> <span class="m">¯10</span> <span class="m">10</span> <span class="m">¯10</span> <span class="m">10</span> <span class="m">¯10</span> <span class="m">10</span> <span class="p">((</span><span class="m">0</span> <span class="m">0</span> <span class="m">5</span> <span class="m">0</span> <span class="m">5</span> <span class="m">0</span> <span class="m">5</span><span class="p">)(</span><span class="m">1</span> <span class="m">11</span> <span class="m">15</span> <span class="m">0</span> <span class="m">5</span> <span class="m">0</span> <span class="m">5</span><span class="p">)(</span><span class="m">1</span> <span class="m">9</span> <span class="m">15</span> <span class="m">0</span> <span class="m">5</span> <span class="m">0</span> <span class="m">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌─────────────┬──────────────┐
+│0 0 5 0 5 0 5│1 9 10 0 5 0 5│
+└─────────────┴──────────────┘
+</span></div></div>
+</div>
+<p>To count cubes in a volume, consider the cuboids inside. If there are
+none, there are 0 cubes. If there’s one, there are however many cubes
+that has. If there are two or more cuboids, take the last, and sum the
+count of cubes outside (recursively) and inside. Since it is the last
+cuboid from the list, it takes precedence, so we don’t need to recurse
+to count inside - the count is just its bit times its volume.</p>
+<p>The recursion is error-prone and it took me a while to find some bugs
+subdividing volumes! Stepping through simple examples was a big help.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="sr">]</span><span class="nv">dinput</span>
+<span class="nv">day22_2</span><span class="kd">←</span><span class="kt">{</span>
+  <span class="c1">⍝ number of on cubes in a cuboid</span>
+  <span class="nv">on_cubes</span><span class="kd">←</span><span class="kt">{</span><span class="nv">bit</span> <span class="nv">x0</span> <span class="nv">x1</span> <span class="nv">y0</span> <span class="nv">y1</span> <span class="nv">z0</span> <span class="nv">z1</span><span class="kd">←</span><span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">bit</span><span class="o">×</span><span class="p">(</span><span class="m">1</span><span class="o">+</span><span class="p">(</span><span class="nv">x1</span><span class="o">-</span><span class="nv">x0</span><span class="p">))</span><span class="o">×</span><span class="p">(</span><span class="m">1</span><span class="o">+</span><span class="p">(</span><span class="nv">y1</span><span class="o">-</span><span class="nv">y0</span><span class="p">))</span><span class="o">×</span><span class="p">(</span><span class="m">1</span><span class="o">+</span><span class="p">(</span><span class="nv">z1</span><span class="o">-</span><span class="nv">z0</span><span class="p">))</span><span class="kt">}</span>
+  <span class="nv">count</span><span class="kd">←</span><span class="kt">{</span>
+    <span class="nv">x0</span> <span class="nv">x1</span> <span class="nv">y0</span> <span class="nv">y1</span> <span class="nv">z0</span> <span class="nv">z1</span> <span class="nv">cs</span><span class="kd">←</span><span class="bp">⍵</span>
+    <span class="m">0</span><span class="o">=≢</span><span class="nv">cs</span><span class="bp">:</span><span class="m">0</span>
+    <span class="m">1</span><span class="o">=≢</span><span class="nv">cs</span><span class="bp">:</span><span class="nv">on_cubes</span> <span class="o">⊃</span><span class="nv">cs</span>
+    <span class="c1">⍝ if two or more cuboids, partition on the last</span>
+    <span class="nv">bit</span> <span class="nv">cx0</span> <span class="nv">cx1</span> <span class="nv">cy0</span> <span class="nv">cy1</span> <span class="nv">cz0</span> <span class="nv">cz1</span><span class="kd">←</span><span class="o">⊃</span><span class="p">(</span><span class="m">¯1</span><span class="o">↑</span><span class="nv">cs</span><span class="p">)</span>
+    <span class="nv">cs</span><span class="kd">←</span><span class="m">¯1</span><span class="o">↓</span><span class="nv">cs</span>
+    <span class="c1">⍝ non-overlapping nested volumes outside the last cuboid</span>
+    <span class="nv">left</span><span class="kd">←</span><span class="nv">x0</span><span class="p">(</span><span class="nv">cx0</span><span class="o">-</span><span class="m">1</span><span class="p">)</span><span class="nv">y0</span> <span class="nv">y1</span> <span class="nv">z0</span> <span class="nv">z1</span>        <span class="c1">⍝ &lt;cx0</span>
+    <span class="nv">right</span><span class="kd">←</span><span class="p">(</span><span class="nv">cx1</span><span class="o">+</span><span class="m">1</span><span class="p">)</span><span class="nv">x1</span> <span class="nv">y0</span> <span class="nv">y1</span> <span class="nv">z0</span> <span class="nv">z1</span>      <span class="c1">⍝ &gt;cx1</span>
+    <span class="nv">below</span><span class="kd">←</span><span class="nv">cx0</span> <span class="nv">cx1</span> <span class="nv">y0</span><span class="p">(</span><span class="nv">cy0</span><span class="o">-</span><span class="m">1</span><span class="p">)</span><span class="nv">z0</span> <span class="nv">z1</span>     <span class="c1">⍝ in [cx0,cx1], &lt;cy0 </span>
+    <span class="nv">above</span><span class="kd">←</span><span class="nv">cx0</span> <span class="nv">cx1</span><span class="p">(</span><span class="nv">cy1</span><span class="o">+</span><span class="m">1</span><span class="p">)</span><span class="nv">y1</span> <span class="nv">z0</span> <span class="nv">z1</span>     <span class="c1">⍝ in [cx0,cx1], &gt;cy1 </span>
+    <span class="nv">behind</span><span class="kd">←</span><span class="nv">cx0</span> <span class="nv">cx1</span> <span class="nv">cy0</span> <span class="nv">cy1</span> <span class="nv">z0</span><span class="p">(</span><span class="nv">cz0</span><span class="o">-</span><span class="m">1</span><span class="p">)</span> <span class="c1">⍝ in [cx0,cx1], in [cy0,cy1], &lt;cz0</span>
+    <span class="nv">front</span><span class="kd">←</span><span class="nv">cx0</span> <span class="nv">cx1</span> <span class="nv">cy0</span> <span class="nv">cy1</span><span class="p">(</span><span class="nv">cz1</span><span class="o">+</span><span class="m">1</span><span class="p">)</span><span class="nv">z1</span>   <span class="c1">⍝ in [cx0,cx1], in [cy0,cy1], &gt;cz1</span>
+    <span class="c1">⍝ count cubes outside</span>
+    <span class="nv">num_outside</span><span class="kd">←</span><span class="o">+</span><span class="na">/</span><span class="kt">{</span>
+      <span class="nv">x0</span> <span class="nv">x1</span> <span class="nv">y0</span> <span class="nv">y1</span> <span class="nv">z0</span> <span class="nv">z1</span><span class="kd">←</span><span class="bp">⍵</span>
+      <span class="p">(</span><span class="nv">x0</span><span class="o">&gt;</span><span class="nv">x1</span><span class="p">)</span><span class="o">∨</span><span class="p">(</span><span class="nv">y0</span><span class="o">&gt;</span><span class="nv">y1</span><span class="p">)</span><span class="o">∨</span><span class="p">(</span><span class="nv">z0</span><span class="o">&gt;</span><span class="nv">z1</span><span class="p">)</span><span class="bp">:</span> <span class="m">0</span> <span class="c1">⍝ empty</span>
+      <span class="nv">count</span> <span class="bp">⍵</span><span class="o">,⊂</span><span class="p">(</span><span class="nv">intersect_cuboids_with_volume</span> <span class="bp">⍵</span><span class="o">,⊂</span><span class="nv">cs</span><span class="p">)</span>
+    <span class="kt">}</span><span class="na">¨</span><span class="p">(</span><span class="nv">left</span> <span class="nv">right</span> <span class="nv">below</span> <span class="nv">above</span> <span class="nv">behind</span> <span class="nv">front</span><span class="p">)</span>
+    <span class="c1">⍝ as this is the last cuboid, it takes precedence over its volume</span>
+    <span class="nv">num_outside</span><span class="o">+</span><span class="p">(</span><span class="nv">on_cubes</span> <span class="nv">bit</span> <span class="nv">cx0</span> <span class="nv">cx1</span> <span class="nv">cy0</span> <span class="nv">cy1</span> <span class="nv">cz0</span> <span class="nv">cz1</span><span class="p">)</span>
+  <span class="kt">}</span>
+  <span class="c1">⍝ bound all the cuboids</span>
+  <span class="nv">_</span> <span class="nv">x0</span> <span class="nv">_</span> <span class="nv">y0</span> <span class="nv">_</span> <span class="nv">z0</span> <span class="nv">_</span><span class="kd">←</span><span class="o">⊃⌊</span><span class="na">/</span><span class="bp">⍵</span>
+  <span class="nv">_</span> <span class="nv">_</span> <span class="nv">x1</span> <span class="nv">_</span> <span class="nv">y1</span> <span class="nv">_</span> <span class="nv">z1</span><span class="kd">←</span><span class="o">⊃⌈</span><span class="na">/</span><span class="bp">⍵</span>
+  <span class="nv">count</span> <span class="nv">x0</span> <span class="nv">x1</span> <span class="nv">y0</span> <span class="nv">y1</span> <span class="nv">z0</span> <span class="nv">z1</span> <span class="bp">⍵</span>
+<span class="kt">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
