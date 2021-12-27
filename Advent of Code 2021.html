@@ -515,6 +515,62 @@
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#day-23">
+   Day 23
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id43">
+     Part 1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id44">
+     Part 2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#day-24">
+   Day 24
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id45">
+     Part 1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id46">
+     Part 2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#day-25">
+   Day 25
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id47">
+     Part 1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id48">
+     Part 2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -541,6 +597,9 @@ terse array language from the 60s. You may have seen its memeable program for
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">done
+</span></div></div>
 </div>
 <p>A few people expressed interest, so about halfway through December I decided
 to try publishing a Jupyter notebook with my solutions in literate programming
@@ -5113,7 +5172,951 @@ subdividing volumes! Stepping through simple examples was a big help.</p>
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">day22_2</span> <span class="p">(</span><span class="m">¯2</span><span class="o">↓</span><span class="nv">test22</span><span class="p">)</span> <span class="c1">⍝ same as part 1</span>
+</pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">590784
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nf">⎕PP</span><span class="kd">←</span><span class="m">16</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">day22_2</span> <span class="nv">test22_2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">2758514936282235
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">day22_2</span> <span class="nv">data22</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">1288707160324706
+</span></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="day-23">
+<h2>Day 23<a class="headerlink" href="#day-23" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://adventofcode.com/2021/day/23">Puzzle link</a></p>
+<p>Another search problem today…</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="vg">⎕</span><span class="kd">←</span><span class="nv">test23</span><span class="kd">←</span><span class="o">↑⊃</span><span class="nf">⎕NGET</span> <span class="s1">&#39;day23-test.txt&#39;</span> <span class="m">1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">#############
+#...........#
+###B#C#B#D###
+  #A#D#C#A#  
+  #########  
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">data23</span><span class="kd">←</span><span class="o">↑⊃</span><span class="nf">⎕NGET</span> <span class="s1">&#39;day23-input.txt&#39;</span> <span class="m">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We are supposed to find the lowest cost way to move some letters
+(amphipods, I’ll call them pods) around a nethack level. We will
+need a way to enumerate moves and their costs.</p>
+<p>⍳ is irritating when you don’t want 1..n, let’s write a more generic
+range function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">range</span><span class="kd">←</span><span class="kt">{</span><span class="nv">a</span> <span class="nv">b</span><span class="kd">←</span><span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">a</span><span class="o">+</span><span class="p">((</span><span class="o">×</span><span class="p">(</span><span class="nv">b</span><span class="o">-</span><span class="nv">a</span><span class="p">))</span><span class="o">×</span><span class="p">((</span><span class="o">⍳</span><span class="m">1</span><span class="o">+|</span><span class="p">(</span><span class="nv">b</span><span class="o">-</span><span class="nv">a</span><span class="p">))</span><span class="o">-</span><span class="m">1</span><span class="p">))</span><span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">range</span> <span class="m">3</span> <span class="m">4</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">3 4
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">range</span> <span class="m">6</span> <span class="m">1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">6 5 4 3 2 1
+</span></div></div>
+</div>
+<p>Here are the ways to move pods following the rules.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="sr">]</span><span class="nv">dinput</span>
+<span class="nv">enumerate_pod_moves</span><span class="kd">←</span><span class="kt">{</span>
+  <span class="nv">grid</span><span class="kd">←</span><span class="bp">⍵</span>
+  <span class="c1">⍝ move if hallway clear</span>
+  <span class="nv">move</span><span class="kd">←</span><span class="kt">{</span>
+    <span class="nv">p</span> <span class="nv">from</span> <span class="nv">to</span><span class="kd">←</span><span class="bp">⍵</span>
+    <span class="c1">⍝ offset &quot;from&quot; so we don&#39;t count the square where the pod is</span>
+    <span class="c1">⍝ (if it&#39;s in a room, this ignores the doorway, but since doorways</span>
+    <span class="c1">⍝ are never occupied this is ok)</span>
+    <span class="nv">dx</span><span class="kd">←</span><span class="o">×</span><span class="p">(</span><span class="nv">to</span><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="o">-</span><span class="nv">from</span><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="p">)</span>
+    <span class="o">∨</span><span class="na">/</span><span class="s1">&#39;.&#39;</span><span class="o">≠</span><span class="nv">grid</span><span class="sr">[</span><span class="kt">{</span><span class="m">2</span><span class="o">,</span><span class="bp">⍵</span><span class="kt">}</span><span class="na">¨</span><span class="nv">range</span><span class="p">(</span><span class="nv">dx</span><span class="o">+</span><span class="nv">from</span><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="p">)(</span><span class="nv">to</span><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="p">)</span><span class="sr">]</span><span class="bp">:</span><span class="no">⍬</span> <span class="c1">⍝ blocked</span>
+    <span class="p">(</span><span class="nv">p</span> <span class="nv">from</span> <span class="nv">to</span><span class="p">)</span>
+  <span class="kt">}</span>
+  <span class="c1">⍝ move pod from &quot;from&quot; into its room, if allowed</span>
+  <span class="nv">move_to_room</span><span class="kd">←</span><span class="kt">{</span>
+    <span class="nv">p</span> <span class="nv">from</span> <span class="nv">room</span><span class="kd">←</span><span class="bp">⍵</span>
+    <span class="c1">⍝ ok if room is empty: take the deepest cell</span>
+    <span class="nv">grid</span><span class="sr">[</span><span class="nv">room</span><span class="sr">]</span><span class="o">≡</span><span class="s1">&#39;..&#39;</span><span class="bp">:</span><span class="o">⊂</span><span class="nv">move</span><span class="p">(</span><span class="nv">p</span> <span class="nv">from</span> <span class="p">(</span><span class="o">⊃</span><span class="nv">room</span><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="p">))</span>
+    <span class="c1">⍝ ok if room has another p pod</span>
+    <span class="nv">grid</span><span class="sr">[</span><span class="nv">room</span><span class="sr">]</span><span class="o">≡</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="o">,</span><span class="nv">p</span><span class="p">)</span><span class="bp">:</span><span class="o">⊂</span><span class="nv">move</span><span class="p">(</span><span class="nv">p</span> <span class="nv">from</span> <span class="p">(</span><span class="o">⊃</span><span class="nv">room</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="p">))</span>
+    <span class="no">⍬</span>
+  <span class="kt">}</span>
+  <span class="c1">⍝ non-doorway hallway positions</span>
+  <span class="nv">hallway</span><span class="kd">←</span><span class="p">(</span><span class="m">2</span> <span class="m">2</span><span class="p">)(</span><span class="m">2</span> <span class="m">3</span><span class="p">)(</span><span class="m">2</span> <span class="m">5</span><span class="p">)(</span><span class="m">2</span> <span class="m">7</span><span class="p">)(</span><span class="m">2</span> <span class="m">9</span><span class="p">)(</span><span class="m">2</span> <span class="m">11</span><span class="p">)(</span><span class="m">2</span> <span class="m">12</span><span class="p">)</span>
+  <span class="c1">⍝ enumerate moves for each pod</span>
+  <span class="nv">moves</span><span class="kd">←</span><span class="o">↑,</span><span class="na">/</span><span class="kt">{</span>
+    <span class="nv">from</span><span class="kd">←</span><span class="bp">⍵</span>
+    <span class="nv">p</span><span class="kd">←</span><span class="nv">grid</span><span class="sr">[</span><span class="o">⊂</span><span class="nv">from</span><span class="sr">]</span>
+    <span class="c1">⍝ can only move from hallway to own room</span>
+    <span class="p">((</span><span class="o">⊂</span><span class="nv">from</span><span class="p">)</span><span class="o">∊</span><span class="nv">hallway</span><span class="p">)</span><span class="o">∧</span><span class="p">(</span><span class="nv">p</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span><span class="bp">:</span><span class="nv">move_to_room</span> <span class="nv">p</span> <span class="nv">from</span><span class="p">((</span><span class="m">3</span> <span class="m">4</span><span class="p">)(</span><span class="m">4</span> <span class="m">4</span><span class="p">))</span>
+    <span class="p">((</span><span class="o">⊂</span><span class="nv">from</span><span class="p">)</span><span class="o">∊</span><span class="nv">hallway</span><span class="p">)</span><span class="o">∧</span><span class="p">(</span><span class="nv">p</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">)</span><span class="bp">:</span><span class="nv">move_to_room</span> <span class="nv">p</span> <span class="nv">from</span><span class="p">((</span><span class="m">3</span> <span class="m">6</span><span class="p">)(</span><span class="m">4</span> <span class="m">6</span><span class="p">))</span>
+    <span class="p">((</span><span class="o">⊂</span><span class="nv">from</span><span class="p">)</span><span class="o">∊</span><span class="nv">hallway</span><span class="p">)</span><span class="o">∧</span><span class="p">(</span><span class="nv">p</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span><span class="bp">:</span><span class="nv">move_to_room</span> <span class="nv">p</span> <span class="nv">from</span><span class="p">((</span><span class="m">3</span> <span class="m">8</span><span class="p">)(</span><span class="m">4</span> <span class="m">8</span><span class="p">))</span>
+    <span class="p">((</span><span class="o">⊂</span><span class="nv">from</span><span class="p">)</span><span class="o">∊</span><span class="nv">hallway</span><span class="p">)</span><span class="o">∧</span><span class="p">(</span><span class="nv">p</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span><span class="bp">:</span><span class="nv">move_to_room</span> <span class="nv">p</span> <span class="nv">from</span><span class="p">((</span><span class="m">3</span> <span class="m">10</span><span class="p">)(</span><span class="m">4</span> <span class="m">10</span><span class="p">))</span>
+    <span class="c1">⍝ else move to hallway</span>
+    <span class="nv">grid</span><span class="sr">[</span><span class="o">⊂</span><span class="nv">from</span><span class="o">-</span><span class="m">1</span> <span class="m">0</span><span class="sr">]</span><span class="o">≠</span><span class="s1">&#39;.&#39;</span><span class="bp">:</span><span class="no">⍬</span> <span class="c1">⍝ blocked</span>
+    <span class="kt">{</span><span class="nv">move</span> <span class="nv">p</span> <span class="nv">from</span> <span class="bp">⍵</span><span class="kt">}</span><span class="na">¨</span><span class="nv">hallway</span>
+  <span class="kt">}</span><span class="na">¨</span><span class="nv">grid</span><span class="p">(</span><span class="o">⍸∊</span><span class="p">)</span><span class="s1">&#39;ABCD&#39;</span>
+  <span class="p">((</span><span class="kt">{</span><span class="p">(</span><span class="o">≢</span><span class="bp">⍵</span><span class="p">)</span><span class="o">&gt;</span><span class="m">0</span><span class="kt">}</span><span class="na">¨</span><span class="nv">moves</span><span class="p">)</span><span class="na">/</span><span class="nv">moves</span><span class="p">)</span> <span class="c1">⍝ filter out empty moves</span>
+<span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">enumerate_pod_moves</span> <span class="nv">test23</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───────────┬───────────┬───────────┬───────────┬───────────┬────────────┬────────────┬───────────┬───────────┬───────────┬───────────┬───────────┬────────────┬────────────┬───────────┬───────────┬───────────┬───────────┬───────────┬────────────┬────────────┬────────────┬────────────┬────────────┬────────────┬────────────┬─────────────┬─────────────┐
+│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬────┐│┌─┬───┬────┐│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬────┐│┌─┬───┬────┐│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬────┐│┌─┬───┬────┐│┌─┬────┬───┐│┌─┬────┬───┐│┌─┬────┬───┐│┌─┬────┬───┐│┌─┬────┬───┐│┌─┬────┬────┐│┌─┬────┬────┐│
+││B│3 4│2 2│││B│3 4│2 3│││B│3 4│2 5│││B│3 4│2 7│││B│3 4│2 9│││B│3 4│2 11│││B│3 4│2 12│││C│3 6│2 2│││C│3 6│2 3│││C│3 6│2 5│││C│3 6│2 7│││C│3 6│2 9│││C│3 6│2 11│││C│3 6│2 12│││B│3 8│2 2│││B│3 8│2 3│││B│3 8│2 5│││B│3 8│2 7│││B│3 8│2 9│││B│3 8│2 11│││B│3 8│2 12│││D│3 10│2 2│││D│3 10│2 3│││D│3 10│2 5│││D│3 10│2 7│││D│3 10│2 9│││D│3 10│2 11│││D│3 10│2 12││
+│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴────┘│└─┴───┴────┘│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴────┘│└─┴───┴────┘│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴────┘│└─┴───┴────┘│└─┴────┴───┘│└─┴────┴───┘│└─┴────┴───┘│└─┴────┴───┘│└─┴────┴───┘│└─┴────┴────┘│└─┴────┴────┘│
+└───────────┴───────────┴───────────┴───────────┴───────────┴────────────┴────────────┴───────────┴───────────┴───────────┴───────────┴───────────┴────────────┴────────────┴───────────┴───────────┴───────────┴───────────┴───────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴─────────────┴─────────────┘
+</span></div></div>
+</div>
+<p>Let’s check going into rooms.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">enumerate_pod_moves</span> <span class="o">↑</span><span class="p">(</span><span class="s1">&#39;#############&#39;</span><span class="p">)(</span><span class="s1">&#39;#...B.......#&#39;</span><span class="p">)(</span><span class="s1">&#39;###B#C#.#D###&#39;</span><span class="p">)(</span><span class="s1">&#39;  #A#D#C#A#  &#39;</span><span class="p">)(</span><span class="s1">&#39;  #########  &#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───────────┬───────────┬───────────┬───────────┬────────────┬────────────┬────────────┬────────────┬─────────────┬─────────────┬───────────┬───────────┬────────────┬────────────┐
+│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬────┐│┌─┬───┬────┐│┌─┬────┬───┐│┌─┬────┬───┐│┌─┬────┬────┐│┌─┬────┬────┐│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬────┐│┌─┬───┬────┐│
+││B│3 4│2 2│││B│3 4│2 3│││C│3 6│2 7│││C│3 6│2 9│││C│3 6│2 11│││C│3 6│2 12│││D│3 10│2 7│││D│3 10│2 9│││D│3 10│2 11│││D│3 10│2 12│││C│4 8│2 7│││C│4 8│2 9│││C│4 8│2 11│││C│4 8│2 12││
+│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴────┘│└─┴───┴────┘│└─┴────┴───┘│└─┴────┴───┘│└─┴────┴────┘│└─┴────┴────┘│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴────┘│└─┴───┴────┘│
+└───────────┴───────────┴───────────┴───────────┴────────────┴────────────┴────────────┴────────────┴─────────────┴─────────────┴───────────┴───────────┴────────────┴────────────┘
+</span></div></div>
+</div>
+<p>Note that we treat C (3 6) exiting its starting room into the
+hallway (2 7) and going to its destination room (3 8) as two
+separate moves. Hopefully that won’t burn too much search time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">enumerate_pod_moves</span> <span class="o">↑</span><span class="p">(</span><span class="s1">&#39;#############&#39;</span><span class="p">)(</span><span class="s1">&#39;#...B.C.....#&#39;</span><span class="p">)(</span><span class="s1">&#39;###B#.#.#D###&#39;</span><span class="p">)(</span><span class="s1">&#39;  #A#D#C#A#&#39;</span><span class="p">)(</span><span class="s1">&#39;  #########&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌───────────┬───────────┬───────────┬────────────┬─────────────┬─────────────┬───────────┬────────────┬────────────┐
+│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬───┬───┐│┌─┬────┬───┐│┌─┬────┬────┐│┌─┬────┬────┐│┌─┬───┬───┐│┌─┬───┬────┐│┌─┬───┬────┐│
+││C│2 7│3 8│││B│3 4│2 2│││B│3 4│2 3│││D│3 10│2 9│││D│3 10│2 11│││D│3 10│2 12│││C│4 8│2 9│││C│4 8│2 11│││C│4 8│2 12││
+│└─┴───┴───┘│└─┴───┴───┘│└─┴───┴───┘│└─┴────┴───┘│└─┴────┴────┘│└─┴────┴────┘│└─┴───┴───┘│└─┴───┴────┘│└─┴───┴────┘│
+└───────────┴───────────┴───────────┴────────────┴─────────────┴─────────────┴───────────┴────────────┴────────────┘
+</span></div></div>
+</div>
+<p>Of course, we have to be able to update the nethack grid.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">do_move</span><span class="kd">←</span><span class="kt">{</span><span class="nv">move</span> <span class="nv">grid</span><span class="kd">←</span><span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">p</span> <span class="nv">from</span> <span class="nv">to</span><span class="kd">←</span><span class="nv">move</span> <span class="p">⋄</span> <span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="nv">p</span><span class="na">@</span><span class="nv">from</span> <span class="nv">to</span><span class="p">)</span><span class="o">⊢</span><span class="nv">grid</span><span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">do_move</span> <span class="p">(</span><span class="o">⊃</span><span class="nv">enumerate_pod_moves</span> <span class="nv">test23</span><span class="p">)</span> <span class="nv">test23</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">#############
+#B..........#
+###.#C#B#D###
+  #A#D#C#A#  
+  #########  
+</span></div></div>
+</div>
+<div class="section" id="id43">
+<h3>Part 1<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h3>
+<p>Find the best cost to sort the pods into the correct rooms.</p>
+<p>A best-first search was way too slow. Remembering <a class="reference external" href="#day-12">day 12</a>,
+first I tried never dropping things from the search queue. Then I
+tried A* with a simple heuristic: each letter must move to the
+correct x position, so it’ll cost at least its movement cost
+times its x distance from its room. This was still way too slow,
+so I wrote it up in Python. That took 30 minutes to code and
+debug and 1 minute to run on test23 with a heapq, but was still
+too slow on the part 1 input.</p>
+<p>D moves are so expensive that you have to search the entire space before
+you make the needful D moves, so we need a better heuristic. Adding
++1 or +2 to move out of the starting room, plus +1 to move into
+the correct room sped the Python search up to 11s for test23 and 48s
+for data23. Some more optimizations got that down to ~1s and ~4s.</p>
+<p>I wasn’t having fun with this part anymore, so didn’t bother to refine
+the APL search program. Dyalog doesn’t seem to have a heap library.
+The program might still have some bugs, too. Maybe I will come back
+later and improve it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="sr">]</span><span class="nv">dinput</span>
+<span class="nv">best_pod_cost</span><span class="kd">←</span><span class="kt">{</span>
+  <span class="nv">grid</span><span class="kd">←</span><span class="bp">⍵</span>
+  <span class="c1">⍝ cost per move</span>
+  <span class="nv">cost</span><span class="kd">←</span><span class="kt">{</span>
+      <span class="nv">p</span> <span class="nv">from</span> <span class="nv">to</span><span class="kd">←</span><span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">steps</span><span class="kd">←</span><span class="o">+</span><span class="na">/</span><span class="o">|</span><span class="nv">from</span><span class="o">-</span><span class="nv">to</span>
+      <span class="nv">p</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="bp">:</span> <span class="nv">steps</span>
+      <span class="nv">p</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="bp">:</span> <span class="m">10</span><span class="o">×</span><span class="nv">steps</span>
+      <span class="nv">p</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="bp">:</span> <span class="m">100</span><span class="o">×</span><span class="nv">steps</span>
+      <span class="nv">p</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="bp">:</span> <span class="m">1000</span><span class="o">×</span><span class="nv">steps</span>
+  <span class="kt">}</span>
+  <span class="c1">⍝ when are we done</span>
+  <span class="nv">done</span><span class="kd">←</span><span class="kt">{</span><span class="nv">grid</span><span class="sr">[</span><span class="p">(</span><span class="m">3</span> <span class="m">4</span><span class="p">)(</span><span class="m">4</span> <span class="m">4</span><span class="p">)(</span><span class="m">3</span> <span class="m">6</span><span class="p">)(</span><span class="m">4</span> <span class="m">6</span><span class="p">)(</span><span class="m">3</span> <span class="m">8</span><span class="p">)(</span><span class="m">4</span> <span class="m">8</span><span class="p">)(</span><span class="m">3</span> <span class="m">10</span><span class="p">)(</span><span class="m">4</span> <span class="m">10</span><span class="p">)</span><span class="sr">]</span><span class="o">≡</span><span class="s1">&#39;AABBCCDD&#39;</span><span class="kt">}</span>
+  <span class="c1">⍝ lower bound on cost remaining</span>
+  <span class="nv">estimate_remaining_cost</span><span class="kd">←</span><span class="kt">{</span>
+    <span class="nv">grid</span><span class="kd">←</span><span class="bp">⍵</span>
+    <span class="nv">a_cost</span><span class="kd">←</span><span class="o">+</span><span class="na">/</span><span class="kt">{</span><span class="m">1</span><span class="o">×|</span><span class="m">2</span><span class="o">⊃</span><span class="bp">⍵</span><span class="o">-</span><span class="m">4</span><span class="kt">}</span><span class="na">¨</span><span class="p">(</span><span class="nv">grid</span><span class="p">(</span><span class="o">⍸∊</span><span class="p">)</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+    <span class="nv">b_cost</span><span class="kd">←</span><span class="o">+</span><span class="na">/</span><span class="kt">{</span><span class="m">10</span><span class="o">×|</span><span class="m">2</span><span class="o">⊃</span><span class="bp">⍵</span><span class="o">-</span><span class="m">6</span><span class="kt">}</span><span class="na">¨</span><span class="p">(</span><span class="nv">grid</span><span class="p">(</span><span class="o">⍸∊</span><span class="p">)</span><span class="s1">&#39;B&#39;</span><span class="p">)</span>
+    <span class="nv">c_cost</span><span class="kd">←</span><span class="o">+</span><span class="na">/</span><span class="kt">{</span><span class="m">100</span><span class="o">×|</span><span class="m">2</span><span class="o">⊃</span><span class="bp">⍵</span><span class="o">-</span><span class="m">8</span><span class="kt">}</span><span class="na">¨</span><span class="p">(</span><span class="nv">grid</span><span class="p">(</span><span class="o">⍸∊</span><span class="p">)</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+    <span class="nv">d_cost</span><span class="kd">←</span><span class="o">+</span><span class="na">/</span><span class="kt">{</span><span class="m">1000</span><span class="o">×|</span><span class="m">2</span><span class="o">⊃</span><span class="bp">⍵</span><span class="o">-</span><span class="m">10</span><span class="kt">}</span><span class="na">¨</span><span class="p">(</span><span class="nv">grid</span><span class="p">(</span><span class="o">⍸∊</span><span class="p">)</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+    <span class="nv">a_cost</span><span class="o">+</span><span class="nv">b_cost</span><span class="o">+</span><span class="nv">c_cost</span><span class="o">+</span><span class="nv">d_cost</span>
+  <span class="kt">}</span>
+  <span class="c1">⍝ avoid some silly moves</span>
+  <span class="nv">prune</span><span class="kd">←</span><span class="kt">{</span>
+      <span class="nv">move</span> <span class="nv">grid</span><span class="kd">←</span><span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">p</span> <span class="nv">from</span> <span class="nv">to</span><span class="kd">←</span><span class="nv">move</span>
+      <span class="p">(</span><span class="nv">p</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span><span class="o">∧</span><span class="p">(</span><span class="nv">from</span><span class="o">≡</span><span class="p">(</span><span class="m">4</span> <span class="m">4</span><span class="p">))</span><span class="bp">:</span> <span class="m">1</span>
+      <span class="p">(</span><span class="nv">p</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span><span class="o">∧</span><span class="p">(</span><span class="nv">from</span><span class="o">≡</span><span class="p">(</span><span class="m">3</span> <span class="m">4</span><span class="p">))</span><span class="o">∧</span><span class="p">(</span><span class="nv">grid</span><span class="sr">[</span><span class="o">⊂</span><span class="m">4</span> <span class="m">4</span><span class="sr">]</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span><span class="bp">:</span> <span class="m">1</span>
+      <span class="p">(</span><span class="nv">p</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">)</span><span class="o">∧</span><span class="p">(</span><span class="nv">from</span><span class="o">≡</span><span class="p">(</span><span class="m">4</span> <span class="m">6</span><span class="p">))</span><span class="bp">:</span> <span class="m">1</span>
+      <span class="p">(</span><span class="nv">p</span><span class="o">=</span><span class="s1">&#39;B&#39;</span><span class="p">)</span><span class="o">∧</span><span class="p">(</span><span class="nv">from</span><span class="o">≡</span><span class="p">(</span><span class="m">3</span> <span class="m">6</span><span class="p">))</span><span class="o">∧</span><span class="p">(</span><span class="nv">grid</span><span class="sr">[</span><span class="o">⊂</span><span class="m">4</span> <span class="m">6</span><span class="sr">]</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span><span class="bp">:</span> <span class="m">1</span>
+      <span class="p">(</span><span class="nv">p</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span><span class="o">∧</span><span class="p">(</span><span class="nv">from</span><span class="o">≡</span><span class="p">(</span><span class="m">4</span> <span class="m">8</span><span class="p">))</span><span class="bp">:</span> <span class="m">1</span>
+      <span class="p">(</span><span class="nv">p</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span><span class="o">∧</span><span class="p">(</span><span class="nv">from</span><span class="o">≡</span><span class="p">(</span><span class="m">3</span> <span class="m">8</span><span class="p">))</span><span class="o">∧</span><span class="p">(</span><span class="nv">grid</span><span class="sr">[</span><span class="o">⊂</span><span class="m">4</span> <span class="m">8</span><span class="sr">]</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span><span class="bp">:</span> <span class="m">1</span>
+      <span class="p">(</span><span class="nv">p</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span><span class="o">∧</span><span class="p">(</span><span class="nv">from</span><span class="o">≡</span><span class="p">(</span><span class="m">4</span> <span class="m">10</span><span class="p">))</span><span class="bp">:</span> <span class="m">1</span>
+      <span class="p">(</span><span class="nv">p</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span><span class="o">∧</span><span class="p">(</span><span class="nv">from</span><span class="o">≡</span><span class="p">(</span><span class="m">3</span> <span class="m">10</span><span class="p">))</span><span class="o">∧</span><span class="p">(</span><span class="nv">grid</span><span class="sr">[</span><span class="o">⊂</span><span class="m">4</span> <span class="m">10</span><span class="sr">]</span><span class="o">=</span><span class="s1">&#39;A&#39;</span><span class="p">)</span><span class="bp">:</span> <span class="m">1</span>
+      <span class="m">0</span>
+  <span class="kt">}</span>
+  <span class="c1">⍝ best-first search with heuristic</span>
+  <span class="nv">q</span><span class="kd">←</span><span class="p">(</span><span class="o">,⊂</span><span class="p">(</span><span class="m">0</span> <span class="m">0</span> <span class="nv">grid</span><span class="p">))</span>
+  <span class="nv">search</span><span class="kd">←</span><span class="kt">{</span>
+    <span class="m">0</span><span class="o">=≢</span><span class="nv">q</span><span class="bp">:</span><span class="m">0</span>
+    <span class="nv">i</span><span class="kd">←</span><span class="p">(</span><span class="o">⊃⍋</span><span class="p">)</span><span class="nv">q</span>  <span class="c1">⍝ min sort score</span>
+    <span class="nv">cur_sort</span> <span class="nv">cur_cost</span> <span class="nv">cur_grid</span><span class="kd">←</span><span class="o">⊃</span><span class="nv">q</span><span class="sr">[</span><span class="nv">i</span><span class="sr">]</span>
+    <span class="nv">done</span> <span class="nv">cur_grid</span><span class="bp">:</span><span class="nv">cur_cost</span> <span class="c1">⍝ answer</span>
+    <span class="nv">moves</span><span class="kd">←</span><span class="nv">enumerate_pod_moves</span> <span class="nv">cur_grid</span>
+    <span class="nv">moves</span><span class="kd">←</span><span class="p">(</span><span class="kt">{</span><span class="o">~</span><span class="p">(</span><span class="nv">prune</span> <span class="bp">⍵</span> <span class="nv">cur_grid</span><span class="p">)</span><span class="kt">}</span><span class="na">¨</span><span class="nv">moves</span><span class="p">)</span><span class="na">/</span><span class="nv">moves</span>
+    <span class="nv">q</span><span class="sr">[</span><span class="nv">i</span><span class="sr">]</span><span class="kd">←</span><span class="o">⊂</span><span class="p">(</span><span class="m">100000000</span> <span class="nv">cur_cost</span> <span class="nv">cur_grid</span><span class="p">)</span>
+    <span class="m">0</span><span class="o">=≢</span><span class="nv">moves</span><span class="bp">:∇</span> <span class="m">0</span>
+    <span class="nv">q</span><span class="o">,</span><span class="kd">←</span><span class="kt">{</span>
+      <span class="nv">new_grid</span><span class="kd">←</span><span class="nv">do_move</span> <span class="bp">⍵</span> <span class="nv">cur_grid</span>
+      <span class="nv">new_cost</span><span class="kd">←</span><span class="nv">cur_cost</span><span class="o">+</span><span class="p">(</span><span class="nv">cost</span> <span class="bp">⍵</span><span class="p">)</span>
+      <span class="nv">new_sort</span><span class="kd">←</span><span class="nv">new_cost</span><span class="o">+</span><span class="p">(</span><span class="nv">estimate_remaining_cost</span> <span class="nv">new_grid</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">new_sort</span> <span class="nv">new_cost</span> <span class="nv">new_grid</span><span class="p">)</span>
+    <span class="kt">}</span><span class="na">¨</span><span class="nv">moves</span>
+    <span class="bp">∇</span> <span class="m">0</span>
+  <span class="kt">}</span>
+  <span class="nv">search</span> <span class="m">0</span>
+<span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id44">
+<h3>Part 2<a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h3>
+<p>Now the rooms are bigger. I generalized and then added some
+simple optimizations to my Python program, e.g. not revisiting
+visited states. I also improved the heuristic to include a
+cost for correctly placed letters having to move out of the
+way to let incorrectly placed letters behind them move out.</p>
+<p>The search took about 5 hours for part 2. I set it running,
+then went out and did stuff for Christmas. Probably there was
+some cleverer way to do this problem by thinking more abstractly
+about sequences of swaps or something, but since A* finished, I
+felt done.  <em>Worst.  Roguelike.  Ever.</em></p>
+<p>Here is the Python program, for completeness’ sake.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">heapq</span>
+
+<span class="n">test</span> <span class="o">=</span> <span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;day23-test.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;day23-input.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()]</span>
+<span class="n">test2</span> <span class="o">=</span> <span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)]</span>
+         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;day23-test2.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()]</span>
+<span class="n">data2</span> <span class="o">=</span> <span class="p">[[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)]</span>
+         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;day23-input2.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()]</span>
+
+<span class="n">room_column</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">}</span>
+<span class="k">def</span> <span class="nf">dest_in_room</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+  <span class="n">i</span> <span class="o">=</span> <span class="n">room_column</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span>
+      <span class="k">return</span> <span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">p</span><span class="p">:</span>
+      <span class="k">return</span>
+
+<span class="k">def</span> <span class="nf">moves</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+  <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">])):</span>
+      <span class="n">p</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s1">&#39;ABCD&#39;</span><span class="p">:</span> <span class="k">continue</span>
+      <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># move from hallway into room</span>
+        <span class="n">dest</span> <span class="o">=</span> <span class="n">dest_in_room</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dest</span> <span class="ow">and</span> <span class="n">is_hallway_clear</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">dest</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+          <span class="k">yield</span> <span class="n">p</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">dest</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dest</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="k">else</span><span class="p">:</span>  <span class="c1"># move from room into hallway if not blocked</span>
+        <span class="k">if</span> <span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">dest</span> <span class="ow">in</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">)):</span>
+          <span class="k">if</span> <span class="n">is_hallway_clear</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">dest</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="k">yield</span> <span class="n">p</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">dest</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dest</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">is_hallway_clear</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">):</span>
+  <span class="k">assert</span> <span class="n">x0</span> <span class="o">!=</span> <span class="n">x1</span>
+  <span class="n">dx</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">x1</span> <span class="o">&gt;</span> <span class="n">x0</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">x0</span>
+  <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">+=</span> <span class="n">dx</span>
+    <span class="k">if</span> <span class="n">grid</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">x1</span><span class="p">:</span> <span class="k">return</span> <span class="kc">True</span>
+
+<span class="k">def</span> <span class="nf">make_move</span><span class="p">(</span><span class="n">move</span><span class="p">,</span> <span class="n">grid</span><span class="p">):</span>
+  <span class="n">p</span><span class="p">,</span> <span class="n">from_y</span><span class="p">,</span> <span class="n">from_x</span><span class="p">,</span> <span class="n">to_y</span><span class="p">,</span> <span class="n">to_x</span> <span class="o">=</span> <span class="n">move</span>
+  <span class="n">new_grid</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span><span class="p">[:]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">grid</span><span class="p">]</span>
+  <span class="n">new_grid</span><span class="p">[</span><span class="n">from_y</span><span class="p">][</span><span class="n">from_x</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span>
+  <span class="n">new_grid</span><span class="p">[</span><span class="n">to_y</span><span class="p">][</span><span class="n">to_x</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span>
+  <span class="k">return</span> <span class="n">new_grid</span>
+
+<span class="k">def</span> <span class="nf">print_grid</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+  <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">)):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">])):</span>
+      <span class="n">s</span> <span class="o">+=</span> <span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">done</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+  <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">7</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">9</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="k">return</span> <span class="kc">False</span>
+  <span class="k">return</span> <span class="kc">True</span>
+
+<span class="n">cost_per_step</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">cost</span><span class="p">(</span><span class="n">move</span><span class="p">):</span>
+  <span class="n">p</span><span class="p">,</span> <span class="n">from_y</span><span class="p">,</span> <span class="n">from_x</span><span class="p">,</span> <span class="n">to_y</span><span class="p">,</span> <span class="n">to_x</span> <span class="o">=</span> <span class="n">move</span>
+  <span class="n">steps</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">from_x</span><span class="o">-</span><span class="n">to_x</span><span class="p">)</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">from_y</span><span class="o">-</span><span class="n">to_y</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">cost_per_step</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">*</span> <span class="n">steps</span>
+
+<span class="k">def</span> <span class="nf">prune</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">move</span><span class="p">):</span>
+  <span class="n">p</span><span class="p">,</span> <span class="n">from_y</span><span class="p">,</span> <span class="n">from_x</span><span class="p">,</span> <span class="n">to_y</span><span class="p">,</span> <span class="n">to_x</span> <span class="o">=</span> <span class="n">move</span>
+  <span class="n">i</span> <span class="o">=</span> <span class="n">room_column</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+  <span class="k">return</span> <span class="n">from_x</span> <span class="o">==</span> <span class="n">i</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">p</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">from_y</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">hashable</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+  <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">grid</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+  <span class="n">q</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">grid</span><span class="p">)]</span>
+  <span class="n">visited</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+  <span class="k">while</span> <span class="n">q</span><span class="p">:</span>
+    <span class="n">cur_sort</span><span class="p">,</span> <span class="n">cur_cost</span><span class="p">,</span> <span class="n">cur_grid</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+    <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">hashable</span><span class="p">(</span><span class="n">cur_grid</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">done</span><span class="p">(</span><span class="n">cur_grid</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">cur_cost</span>
+    <span class="k">for</span> <span class="n">move</span> <span class="ow">in</span> <span class="n">moves</span><span class="p">(</span><span class="n">cur_grid</span><span class="p">):</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">prune</span><span class="p">(</span><span class="n">cur_grid</span><span class="p">,</span> <span class="n">move</span><span class="p">):</span>
+        <span class="n">new_grid</span> <span class="o">=</span> <span class="n">make_move</span><span class="p">(</span><span class="n">move</span><span class="p">,</span> <span class="n">cur_grid</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">hashable</span><span class="p">(</span><span class="n">new_grid</span><span class="p">)</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="n">new_cost</span> <span class="o">=</span> <span class="n">cur_cost</span> <span class="o">+</span> <span class="n">cost</span><span class="p">(</span><span class="n">move</span><span class="p">)</span>
+        <span class="n">new_sort</span> <span class="o">=</span> <span class="n">new_cost</span> <span class="o">+</span> <span class="n">estimate_remaining_cost</span><span class="p">(</span><span class="n">new_grid</span><span class="p">)</span>
+        <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="p">(</span><span class="n">new_sort</span><span class="p">,</span> <span class="n">new_cost</span><span class="p">,</span> <span class="n">new_grid</span><span class="p">))</span>
+  <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">blocking</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">j0</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+  <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">p</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">j0</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">estimate_remaining_cost</span><span class="p">(</span><span class="n">grid</span><span class="p">):</span>
+  <span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">])):</span>
+      <span class="n">p</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+      <span class="n">cost</span> <span class="o">+=</span> <span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="nb">abs</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>        <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="s1">&#39;A&#39;</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">3</span> <span class="k">else</span>
+               <span class="n">j</span>                 <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="s1">&#39;A&#39;</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">blocking</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">else</span>
+               <span class="mi">10</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="nb">abs</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">5</span><span class="p">))</span>   <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="s1">&#39;B&#39;</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">5</span> <span class="k">else</span>
+               <span class="mi">10</span><span class="o">*</span><span class="n">j</span>              <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="s1">&#39;B&#39;</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">5</span> <span class="ow">and</span> <span class="n">blocking</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">else</span>
+               <span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="nb">abs</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">7</span><span class="p">))</span>  <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="s1">&#39;C&#39;</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">7</span> <span class="k">else</span>
+               <span class="mi">100</span><span class="o">*</span><span class="n">j</span>             <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="s1">&#39;C&#39;</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">7</span> <span class="ow">and</span> <span class="n">blocking</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">else</span>
+               <span class="mi">1000</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="nb">abs</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">9</span><span class="p">))</span> <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="s1">&#39;D&#39;</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">9</span> <span class="k">else</span>
+               <span class="mi">1000</span><span class="o">*</span><span class="n">j</span>            <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="s1">&#39;D&#39;</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">9</span> <span class="ow">and</span> <span class="n">blocking</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">else</span>
+               <span class="mi">0</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">cost</span>
+
+<span class="k">def</span> <span class="nf">time</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+  <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">()</span>
+  <span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s1">  (took </span><span class="si">{</span><span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+<span class="n">time</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">search</span><span class="p">(</span><span class="n">data2</span><span class="p">))</span>
+<span class="n">time</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">search</span><span class="p">(</span><span class="n">test2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="day-24">
+<h2>Day 24<a class="headerlink" href="#day-24" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://adventofcode.com/2021/day/24">Puzzle link</a></p>
+<p>Interesting, an ALU today. I like emulation!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">data24</span><span class="kd">←</span><span class="s1">&#39; &#39;</span><span class="p">(</span><span class="o">≠⊆⊢</span><span class="p">)</span><span class="na">¨</span><span class="o">⊃</span><span class="nf">⎕NGET</span><span class="s1">&#39;day24-input.txt&#39;</span> <span class="m">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This one is pretty simple, so I guess we’ll just mostly be
+untangling what the program does. Perhaps we’ll want to
+decompile it into an expression tree or something - not even
+sure we strictly need to run the program, but why not:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="sr">]</span><span class="nv">dinput</span>
+<span class="nv">run_program</span><span class="kd">←</span><span class="kt">{</span>
+  <span class="nv">program</span> <span class="nv">inputs</span><span class="kd">←</span><span class="bp">⍵</span>
+  <span class="nv">registers</span><span class="kd">←</span><span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span> <span class="c1">⍝ w x y z</span>
+  <span class="nv">decode_register_index</span><span class="kd">←</span><span class="kt">{</span><span class="bp">⍵</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="bp">:</span><span class="m">1</span> <span class="p">⋄</span> <span class="bp">⍵</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="bp">:</span><span class="m">2</span> <span class="p">⋄</span> <span class="bp">⍵</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="bp">:</span><span class="m">3</span> <span class="p">⋄</span> <span class="bp">⍵</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="bp">:</span><span class="m">4</span><span class="kt">}</span>
+  <span class="nv">decode_register_or_immediate</span><span class="kd">←</span><span class="kt">{</span>
+    <span class="o">∧</span><span class="na">/</span><span class="bp">⍵</span><span class="o">∊</span><span class="s1">&#39;wxyz&#39;</span><span class="bp">:</span><span class="nv">registers</span><span class="sr">[</span><span class="nv">decode_register_index</span> <span class="bp">⍵</span><span class="sr">]</span> <span class="p">⋄</span> <span class="o">⍎</span><span class="bp">⍵</span>
+  <span class="kt">}</span>
+  <span class="nv">run_instruction</span><span class="kd">←</span><span class="kt">{</span>
+    <span class="c1">⍝⎕←⍵ registers inputs</span>
+    <span class="c1">⍝ inp has one argument</span>
+    <span class="p">(</span><span class="m">2</span><span class="o">=≢</span><span class="bp">⍵</span><span class="p">)</span><span class="o">∧</span><span class="p">(</span><span class="bp">⍵</span><span class="sr">[</span><span class="m">1</span><span class="sr">]</span><span class="o">≡⊂</span><span class="s1">&#39;inp&#39;</span><span class="p">)</span><span class="bp">:</span><span class="kt">{</span>
+      <span class="nv">registers</span><span class="sr">[</span><span class="nv">decode_register_index</span> <span class="bp">⍵</span><span class="sr">]</span><span class="kd">←</span><span class="m">1</span><span class="o">↑</span><span class="nv">inputs</span>
+      <span class="nv">inputs</span><span class="o">⊢</span><span class="kd">←</span><span class="m">1</span><span class="o">↓</span><span class="nv">inputs</span>
+      <span class="m">0</span>
+    <span class="kt">}</span><span class="o">⊃</span><span class="p">(</span><span class="bp">⍵</span><span class="sr">[</span><span class="m">2</span><span class="sr">]</span><span class="p">)</span>
+    <span class="c1">⍝ all other instructions have two arguments</span>
+    <span class="nv">opcode</span> <span class="nv">arg1</span> <span class="nv">arg2</span><span class="kd">←</span><span class="bp">⍵</span>
+    <span class="nv">a_index</span><span class="kd">←</span><span class="nv">decode_register_index</span> <span class="nv">arg1</span>
+    <span class="nv">a</span><span class="kd">←</span><span class="nv">registers</span><span class="sr">[</span><span class="nv">a_index</span><span class="sr">]</span>
+    <span class="nv">b</span><span class="kd">←</span><span class="nv">decode_register_or_immediate</span> <span class="nv">arg2</span>
+    <span class="nv">opcode</span><span class="o">≡</span><span class="s1">&#39;add&#39;</span><span class="bp">:</span><span class="kt">{</span><span class="nv">registers</span><span class="sr">[</span><span class="nv">a_index</span><span class="sr">]</span><span class="kd">←</span><span class="nv">a</span><span class="o">+</span><span class="nv">b</span> <span class="p">⋄</span> <span class="m">0</span><span class="kt">}</span><span class="m">0</span>
+    <span class="nv">opcode</span><span class="o">≡</span><span class="s1">&#39;mul&#39;</span><span class="bp">:</span><span class="kt">{</span><span class="nv">registers</span><span class="sr">[</span><span class="nv">a_index</span><span class="sr">]</span><span class="kd">←</span><span class="nv">a</span><span class="o">×</span><span class="nv">b</span> <span class="p">⋄</span> <span class="m">0</span><span class="kt">}</span><span class="m">0</span>
+    <span class="c1">⍝ divide and truncate</span>
+    <span class="nv">opcode</span><span class="o">≡</span><span class="s1">&#39;div&#39;</span><span class="bp">:</span><span class="kt">{</span><span class="nv">registers</span><span class="sr">[</span><span class="nv">a_index</span><span class="sr">]</span><span class="kd">←</span><span class="nv">a</span><span class="p">((</span><span class="o">××</span><span class="na">∘</span><span class="o">⌊|</span><span class="p">)</span><span class="o">÷</span><span class="p">)</span><span class="nv">b</span> <span class="p">⋄</span> <span class="m">0</span><span class="kt">}</span><span class="m">0</span>
+    <span class="nv">opcode</span><span class="o">≡</span><span class="s1">&#39;mod&#39;</span><span class="bp">:</span><span class="kt">{</span><span class="nv">registers</span><span class="sr">[</span><span class="nv">a_index</span><span class="sr">]</span><span class="kd">←</span><span class="nv">b</span><span class="o">|</span><span class="nv">a</span> <span class="p">⋄</span> <span class="m">0</span><span class="kt">}</span><span class="m">0</span>
+    <span class="nv">opcode</span><span class="o">≡</span><span class="s1">&#39;eql&#39;</span><span class="bp">:</span><span class="kt">{</span><span class="nv">registers</span><span class="sr">[</span><span class="nv">a_index</span><span class="sr">]</span><span class="kd">←</span><span class="nv">a</span><span class="o">=</span><span class="nv">b</span> <span class="p">⋄</span> <span class="m">0</span><span class="kt">}</span><span class="m">0</span>
+  <span class="kt">}</span>
+  <span class="nv">_</span><span class="kd">←</span><span class="nv">run_instruction</span><span class="na">¨</span><span class="nv">program</span>
+  <span class="nv">registers</span>
+<span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nf">⎕PP</span><span class="kd">←</span><span class="m">16</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">run_program</span> <span class="nv">data24</span> <span class="p">(</span><span class="m">1</span> <span class="m">3</span> <span class="m">5</span> <span class="m">7</span> <span class="m">9</span> <span class="m">2</span> <span class="m">4</span> <span class="m">6</span> <span class="m">8</span> <span class="m">9</span> <span class="m">9</span> <span class="m">9</span> <span class="m">9</span> <span class="m">9</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">9 1 22 2695331544
+</span></div></div>
+</div>
+<div class="section" id="id45">
+<h3>Part 1<a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h3>
+<p>We have to find the largest input string such that the program
+computes z=0.</p>
+<p>Running on a couple random inputs doesn’t give much insight…
+z is just some 10-digit number. It seems to vary with the size
+of the input number, and mostly increases as we read more input
+digits. There are lots of repeated sequences of instructions,
+so let’s look at the program, per digit.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="kt">{</span><span class="o">⊃,</span><span class="na">/</span><span class="s1">&#39; &#39;</span><span class="p">(</span><span class="m">1</span><span class="o">↓</span><span class="na">∘</span><span class="o">,,</span><span class="na">⍤</span><span class="m">0</span><span class="p">)</span><span class="bp">⍵</span><span class="kt">}</span><span class="na">¨</span><span class="o">⍉↑</span><span class="p">(</span><span class="kt">{</span><span class="p">(</span><span class="s1">&#39;inp&#39;</span> <span class="p">(</span><span class="o">,</span><span class="s1">&#39;w&#39;</span><span class="p">))</span><span class="o">≡</span><span class="bp">⍵</span><span class="kt">}</span><span class="na">¨</span><span class="nv">data24</span><span class="p">)</span><span class="o">⊂</span><span class="nv">data24</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────┬────────┬────────┬─────────┐
+│inp w   │inp w   │inp w   │inp w   │inp w   │inp w   │inp w   │inp w   │inp w    │inp w   │inp w   │inp w   │inp w   │inp w    │
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│mul x 0 │mul x 0 │mul x 0 │mul x 0 │mul x 0 │mul x 0 │mul x 0 │mul x 0 │mul x 0  │mul x 0 │mul x 0 │mul x 0 │mul x 0 │mul x 0  │
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│add x z │add x z │add x z │add x z │add x z │add x z │add x z │add x z │add x z  │add x z │add x z │add x z │add x z │add x z  │
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│mod x 26│mod x 26│mod x 26│mod x 26│mod x 26│mod x 26│mod x 26│mod x 26│mod x 26 │mod x 26│mod x 26│mod x 26│mod x 26│mod x 26 │
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│div z 1 │div z 1 │div z 1 │div z 26│div z 1 │div z 26│div z 1 │div z 26│div z 26 │div z 26│div z 1 │div z 1 │div z 26│div z 26 │
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│add x 12│add x 11│add x 12│add x -3│add x 10│add x -9│add x 10│add x -7│add x -11│add x -4│add x 14│add x 11│add x -8│add x -10│
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│eql x w │eql x w │eql x w │eql x w │eql x w │eql x w │eql x w │eql x w │eql x w  │eql x w │eql x w │eql x w │eql x w │eql x w  │
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│eql x 0 │eql x 0 │eql x 0 │eql x 0 │eql x 0 │eql x 0 │eql x 0 │eql x 0 │eql x 0  │eql x 0 │eql x 0 │eql x 0 │eql x 0 │eql x 0  │
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│mul y 0 │mul y 0 │mul y 0 │mul y 0 │mul y 0 │mul y 0 │mul y 0 │mul y 0 │mul y 0  │mul y 0 │mul y 0 │mul y 0 │mul y 0 │mul y 0  │
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│add y 25│add y 25│add y 25│add y 25│add y 25│add y 25│add y 25│add y 25│add y 25 │add y 25│add y 25│add y 25│add y 25│add y 25 │
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│mul y x │mul y x │mul y x │mul y x │mul y x │mul y x │mul y x │mul y x │mul y x  │mul y x │mul y x │mul y x │mul y x │mul y x  │
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│add y 1 │add y 1 │add y 1 │add y 1 │add y 1 │add y 1 │add y 1 │add y 1 │add y 1  │add y 1 │add y 1 │add y 1 │add y 1 │add y 1  │
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│mul z y │mul z y │mul z y │mul z y │mul z y │mul z y │mul z y │mul z y │mul z y  │mul z y │mul z y │mul z y │mul z y │mul z y  │
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│mul y 0 │mul y 0 │mul y 0 │mul y 0 │mul y 0 │mul y 0 │mul y 0 │mul y 0 │mul y 0  │mul y 0 │mul y 0 │mul y 0 │mul y 0 │mul y 0  │
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│add y w │add y w │add y w │add y w │add y w │add y w │add y w │add y w │add y w  │add y w │add y w │add y w │add y w │add y w  │
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│add y 7 │add y 15│add y 2 │add y 15│add y 14│add y 2 │add y 15│add y 1 │add y 15 │add y 15│add y 12│add y 2 │add y 13│add y 13 │
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│mul y x │mul y x │mul y x │mul y x │mul y x │mul y x │mul y x │mul y x │mul y x  │mul y x │mul y x │mul y x │mul y x │mul y x  │
+├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼─────────┼────────┼────────┼────────┼────────┼─────────┤
+│add z y │add z y │add z y │add z y │add z y │add z y │add z y │add z y │add z y  │add z y │add z y │add z y │add z y │add z y  │
+└────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴─────────┴────────┴────────┴────────┴────────┴─────────┘
+</span></div></div>
+</div>
+<p>This computes</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)):</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">z</span><span class="o">%</span><span class="mi">26</span><span class="p">)</span> <span class="o">+</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+  <span class="n">z</span> <span class="o">//=</span> <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+  <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">*</span><span class="mi">26</span> <span class="o">+</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">collect_arg2</span><span class="kd">←</span><span class="kt">{{</span><span class="o">⍎⊃</span><span class="bp">⍵</span><span class="kt">}</span><span class="na">¨</span><span class="m">3</span><span class="o">⌷</span><span class="na">¨</span><span class="bp">⍵</span><span class="o">⌷</span><span class="p">(</span><span class="o">⍉↑</span><span class="p">(</span><span class="kt">{</span><span class="p">(</span><span class="s1">&#39;inp&#39;</span> <span class="p">(</span><span class="o">,</span><span class="s1">&#39;w&#39;</span><span class="p">))</span><span class="o">≡</span><span class="bp">⍵</span><span class="kt">}</span><span class="na">¨</span><span class="nv">data24</span><span class="p">)</span><span class="o">⊂</span><span class="nv">data24</span><span class="p">)</span><span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="vg">⎕</span><span class="kd">←</span><span class="nv">A</span><span class="kd">←</span><span class="nv">collect_arg2</span> <span class="m">6</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">12 11 12 ¯3 10 ¯9 10 ¯7 ¯11 ¯4 14 11 ¯8 ¯10
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="vg">⎕</span><span class="kd">←</span><span class="nv">B</span><span class="kd">←</span><span class="nv">collect_arg2</span> <span class="m">5</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">1 1 1 26 1 26 1 26 26 26 1 1 26 26
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="vg">⎕</span><span class="kd">←</span><span class="nv">C</span><span class="kd">←</span><span class="nv">collect_arg2</span> <span class="m">16</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">7 15 2 15 14 2 15 1 15 15 12 2 13 13
+</span></div></div>
+</div>
+<p>Note that when A≥10 we must have <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">!=</span> <span class="pre">s[i]</span></code>, so z must
+increase on those steps. Also the steps where A&lt;10 correspond
+with the steps where B=26, and each of these steps must avoid
+increasing z to have any hope of reaching 0.</p>
+<p>Let’s just start unrolling this manually, using python indexing
+since that’s the pseudocode.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># iteration 1: A[0]=12 so z must increase</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">7</span>
+<span class="c1"># iteration 2: A[1]=11 so z must increase</span>
+<span class="n">z</span> <span class="o">=</span> <span class="mi">26</span><span class="o">*</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">15</span><span class="p">)</span>
+<span class="c1"># iteration 3: A[2]=12 so z must increase</span>
+<span class="n">z</span> <span class="o">=</span> <span class="mi">26</span><span class="o">*</span><span class="p">(</span><span class="mi">26</span><span class="o">*</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">15</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># iteration 4: A[3]=-3, must have x == s[3]</span>
+<span class="n">z</span> <span class="o">=</span> <span class="mi">26</span><span class="o">*</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">15</span><span class="p">)</span> <span class="c1"># z //= 26</span>
+<span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="k">pass</span> <span class="c1"># ...</span>
+<span class="c1"># iteration 5: A[4]=10 so z must increase</span>
+<span class="n">z</span> <span class="o">=</span> <span class="mi">26</span><span class="o">*</span><span class="p">(</span><span class="mi">26</span><span class="o">*</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">15</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">+</span><span class="mi">14</span><span class="p">)</span>
+<span class="c1"># iteration 6: A[5]=-9, must have x == s[5]</span>
+<span class="n">z</span> <span class="o">=</span> <span class="mi">26</span><span class="o">*</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">7</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">15</span><span class="p">)</span> <span class="c1"># z //= 26</span>
+<span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">+</span><span class="mi">5</span><span class="p">:</span> <span class="k">pass</span> <span class="c1"># ...</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>Ok, let’s use a computer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="sr">]</span><span class="nv">dinput</span>
+<span class="nv">r</span><span class="kd">←</span><span class="nv">constrain_inputs</span> <span class="nv">constants</span><span class="sr">;</span><span class="nv">as</span><span class="sr">;</span><span class="nv">bs</span><span class="sr">;</span><span class="nv">cs</span><span class="sr">;</span><span class="nv">z</span><span class="sr">;</span><span class="nv">n</span><span class="sr">;</span><span class="nv">v</span><span class="sr">;</span><span class="nv">k</span>
+<span class="nv">as</span> <span class="nv">bs</span> <span class="nv">cs</span><span class="kd">←</span><span class="nv">constants</span>
+<span class="nv">z</span><span class="kd">←</span><span class="no">⍬</span>
+<span class="nv">r</span><span class="kd">←</span><span class="no">⍬</span>
+<span class="bp">:</span><span class="nv">For</span> <span class="nv">n</span> <span class="bp">:</span><span class="nv">In</span> <span class="o">⍳</span><span class="m">14</span>
+  <span class="bp">:</span><span class="nv">If</span> <span class="nv">as</span><span class="sr">[</span><span class="nv">n</span><span class="sr">]</span><span class="o">&gt;</span><span class="m">0</span>
+    <span class="nv">z</span><span class="o">,</span><span class="kd">←</span><span class="o">⊂</span><span class="p">(</span><span class="nv">n</span><span class="p">(</span><span class="nv">cs</span><span class="sr">[</span><span class="nv">n</span><span class="sr">]</span><span class="p">))</span>
+  <span class="bp">:</span><span class="nv">Else</span>
+    <span class="nv">v</span> <span class="nv">k</span><span class="kd">←</span><span class="o">⊃</span><span class="p">(</span><span class="m">¯1</span><span class="o">↑</span><span class="nv">z</span><span class="p">)</span>
+    <span class="nv">r</span><span class="o">,</span><span class="kd">←</span><span class="o">⊂</span><span class="p">(</span><span class="nv">n</span> <span class="nv">v</span><span class="p">(</span><span class="nv">k</span><span class="o">+</span><span class="nv">as</span><span class="sr">[</span><span class="nv">n</span><span class="sr">]</span><span class="p">))</span>
+    <span class="nv">z</span><span class="o">⊢</span><span class="kd">←</span><span class="m">¯1</span><span class="o">↓</span><span class="nv">z</span>
+  <span class="bp">:</span><span class="nv">EndIf</span>
+<span class="bp">:</span><span class="nv">EndFor</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="o">↑</span><span class="nv">constrain_inputs</span> <span class="nv">A</span> <span class="nv">B</span> <span class="nv">C</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace"> 4  3 ¯1
+ 6  5  5
+ 8  7  8
+ 9  2  4
+10  1  3
+13 12 ¯6
+14 11  2
+</span></div></div>
+</div>
+<p>So we must have digit 4 = (digit 3) - 1, digit 6 = (digit 5) + 5, etc.
+This ought to be easy to satisfy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="sr">]</span><span class="nv">dinput</span>
+<span class="nv">r</span><span class="kd">←</span><span class="nv">find_inputs</span><span class="sr">;</span><span class="nv">d1</span><span class="sr">;</span><span class="nv">d2</span><span class="sr">;</span><span class="nv">d3</span><span class="sr">;</span><span class="nv">d4</span><span class="sr">;</span><span class="nv">d5</span><span class="sr">;</span><span class="nv">d6</span><span class="sr">;</span><span class="nv">d7</span><span class="sr">;</span><span class="nv">d8</span><span class="sr">;</span><span class="nv">d9</span><span class="sr">;</span><span class="nv">d10</span><span class="sr">;</span><span class="nv">d11</span><span class="sr">;</span><span class="nv">d12</span><span class="sr">;</span><span class="nv">d13</span><span class="sr">;</span><span class="nv">d14</span>
+<span class="nv">r</span><span class="kd">←</span><span class="no">⍬</span>
+<span class="bp">:</span><span class="nv">For</span> <span class="nv">d3</span> <span class="bp">:</span><span class="nv">In</span> <span class="o">⍳</span><span class="m">9</span>
+  <span class="nv">d4</span><span class="kd">←</span><span class="nv">d3</span><span class="o">-</span><span class="m">1</span>
+  <span class="bp">:</span><span class="nv">If</span> <span class="p">(</span><span class="nv">d4</span><span class="o">&lt;</span><span class="m">1</span><span class="p">)</span><span class="o">∨</span><span class="p">(</span><span class="nv">d4</span><span class="o">&gt;</span><span class="m">9</span><span class="p">)</span>
+    <span class="bp">:</span><span class="nv">Continue</span>
+  <span class="bp">:</span><span class="nv">EndIf</span>
+  <span class="bp">:</span><span class="nv">For</span> <span class="nv">d5</span> <span class="bp">:</span><span class="nv">In</span> <span class="o">⍳</span><span class="m">9</span>
+    <span class="nv">d6</span><span class="kd">←</span><span class="nv">d5</span><span class="o">+</span><span class="m">5</span>
+    <span class="bp">:</span><span class="nv">If</span> <span class="p">(</span><span class="nv">d6</span><span class="o">&lt;</span><span class="m">1</span><span class="p">)</span><span class="o">∨</span><span class="p">(</span><span class="nv">d6</span><span class="o">&gt;</span><span class="m">9</span><span class="p">)</span>
+      <span class="bp">:</span><span class="nv">Continue</span>
+    <span class="bp">:</span><span class="nv">EndIf</span>
+    <span class="bp">:</span><span class="nv">For</span> <span class="nv">d7</span> <span class="bp">:</span><span class="nv">In</span> <span class="o">⍳</span><span class="m">9</span>
+      <span class="nv">d8</span><span class="kd">←</span><span class="nv">d7</span><span class="o">+</span><span class="m">8</span>
+      <span class="bp">:</span><span class="nv">If</span> <span class="p">(</span><span class="nv">d8</span><span class="o">&lt;</span><span class="m">1</span><span class="p">)</span><span class="o">∨</span><span class="p">(</span><span class="nv">d8</span><span class="o">&gt;</span><span class="m">9</span><span class="p">)</span>
+        <span class="bp">:</span><span class="nv">Continue</span>
+      <span class="bp">:</span><span class="nv">EndIf</span>
+      <span class="bp">:</span><span class="nv">For</span> <span class="nv">d2</span> <span class="bp">:</span><span class="nv">In</span> <span class="o">⍳</span><span class="m">9</span>
+        <span class="nv">d9</span><span class="kd">←</span><span class="nv">d2</span><span class="o">+</span><span class="m">4</span>
+        <span class="bp">:</span><span class="nv">If</span> <span class="p">(</span><span class="nv">d9</span><span class="o">&lt;</span><span class="m">1</span><span class="p">)</span><span class="o">∨</span><span class="p">(</span><span class="nv">d9</span><span class="o">&gt;</span><span class="m">9</span><span class="p">)</span>
+          <span class="bp">:</span><span class="nv">Continue</span>
+        <span class="bp">:</span><span class="nv">EndIf</span>
+        <span class="bp">:</span><span class="nv">For</span> <span class="nv">d1</span> <span class="bp">:</span><span class="nv">In</span> <span class="o">⍳</span><span class="m">9</span>
+          <span class="nv">d10</span><span class="kd">←</span><span class="nv">d1</span><span class="o">+</span><span class="m">3</span>
+          <span class="bp">:</span><span class="nv">If</span> <span class="p">(</span><span class="nv">d10</span><span class="o">&lt;</span><span class="m">1</span><span class="p">)</span><span class="o">∨</span><span class="p">(</span><span class="nv">d10</span><span class="o">&gt;</span><span class="m">9</span><span class="p">)</span>
+            <span class="bp">:</span><span class="nv">Continue</span>
+          <span class="bp">:</span><span class="nv">EndIf</span>
+          <span class="bp">:</span><span class="nv">For</span> <span class="nv">d12</span> <span class="bp">:</span><span class="nv">In</span> <span class="o">⍳</span><span class="m">9</span>
+            <span class="nv">d13</span><span class="kd">←</span><span class="nv">d12</span><span class="o">-</span><span class="m">6</span>
+            <span class="bp">:</span><span class="nv">If</span> <span class="p">(</span><span class="nv">d13</span><span class="o">&lt;</span><span class="m">1</span><span class="p">)</span><span class="o">∨</span><span class="p">(</span><span class="nv">d13</span><span class="o">&gt;</span><span class="m">9</span><span class="p">)</span>
+              <span class="bp">:</span><span class="nv">Continue</span>
+            <span class="bp">:</span><span class="nv">EndIf</span>
+            <span class="bp">:</span><span class="nv">For</span> <span class="nv">d11</span> <span class="bp">:</span><span class="nv">In</span> <span class="o">⍳</span><span class="m">9</span>
+              <span class="nv">d14</span><span class="kd">←</span><span class="nv">d11</span><span class="o">+</span><span class="m">2</span>
+              <span class="bp">:</span><span class="nv">If</span> <span class="p">(</span><span class="nv">d14</span><span class="o">&lt;</span><span class="m">1</span><span class="p">)</span><span class="o">∨</span><span class="p">(</span><span class="nv">d14</span><span class="o">&gt;</span><span class="m">9</span><span class="p">)</span>
+                <span class="bp">:</span><span class="nv">Continue</span>
+              <span class="bp">:</span><span class="nv">EndIf</span>
+              <span class="nv">r</span><span class="o">,</span><span class="kd">←</span><span class="m">10</span><span class="o">⊥</span><span class="nv">d1</span> <span class="nv">d2</span> <span class="nv">d3</span> <span class="nv">d4</span> <span class="nv">d5</span> <span class="nv">d6</span> <span class="nv">d7</span> <span class="nv">d8</span> <span class="nv">d9</span> <span class="nv">d10</span> <span class="nv">d11</span> <span class="nv">d12</span> <span class="nv">d13</span> <span class="nv">d14</span>
+            <span class="bp">:</span><span class="nv">EndFor</span>
+          <span class="bp">:</span><span class="nv">EndFor</span>
+        <span class="bp">:</span><span class="nv">EndFor</span>
+      <span class="bp">:</span><span class="nv">EndFor</span>
+    <span class="bp">:</span><span class="nv">EndFor</span>
+  <span class="bp">:</span><span class="nv">EndFor</span>
+<span class="bp">:</span><span class="nv">EndFor</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">day24_1</span><span class="kd">←</span><span class="o">⌈</span><span class="na">/</span><span class="nv">find_inputs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">day24_1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">65984919997939
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">run_program</span> <span class="nv">data24</span> <span class="p">(</span><span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span><span class="o">⊤</span><span class="p">(</span><span class="nv">day24_1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">9 0 0 0
+</span></div></div>
+</div>
+</div>
+<div class="section" id="id46">
+<h3>Part 2<a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h3>
+<p>Now we want the min.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">day24_2</span><span class="kd">←</span><span class="o">⌊</span><span class="na">/</span><span class="nv">find_inputs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">day24_2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">11211619541713
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">run_program</span> <span class="nv">data24</span> <span class="p">(</span><span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span> <span class="m">10</span><span class="o">⊤</span><span class="p">(</span><span class="nv">day24_2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">3 0 0 0
+</span></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="day-25">
+<h2>Day 25<a class="headerlink" href="#day-25" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://adventofcode.com/2021/day/25">Puzzle link</a></p>
+<p>Sea cucumbers. Sounds like C cucumbers. Good old C, sigh.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="vg">⎕</span><span class="kd">←</span><span class="nv">test25</span><span class="kd">←</span><span class="o">↑⊃</span><span class="nf">⎕NGET</span> <span class="s1">&#39;day25-test.txt&#39;</span> <span class="m">1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">v...&gt;&gt;.vv&gt;
+.vv&gt;&gt;.vv..
+&gt;&gt;.&gt;v&gt;...v
+&gt;&gt;v&gt;&gt;.&gt;.v.
+v&gt;v.vv.v..
+&gt;.&gt;&gt;..v...
+.vv..&gt;.&gt;v.
+v.v..&gt;&gt;v.v
+....v..v.&gt;
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">data25</span><span class="kd">←</span><span class="o">↑⊃</span><span class="nf">⎕NGET</span> <span class="s1">&#39;day25-input.txt&#39;</span> <span class="m">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We need to check if cells to the “east” and “south” on a toroidal grid
+are empty. A cell has ‘&gt;’ in the next generation if it west has ‘&gt;’ in
+the current generation and it is empty, or if it has ‘&gt;’ in the current
+generation and east is nonempty.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;.&gt;v&#39;</span><span class="sr">[</span><span class="m">1</span><span class="o">+</span><span class="p">((</span><span class="m">2</span><span class="o">×</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="o">=⊢</span><span class="p">))</span><span class="o">+</span><span class="p">(((</span><span class="m">¯1</span><span class="o">⌽</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="o">=⊢</span><span class="p">))</span><span class="o">∧</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="o">=⊢</span><span class="p">))</span><span class="o">∨</span><span class="p">(((</span><span class="s1">&#39;&gt;&#39;</span><span class="o">=⊢</span><span class="p">))</span><span class="o">∧</span><span class="p">(</span><span class="m">1</span><span class="o">⌽</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="o">≠⊢</span><span class="p">)))))</span><span class="nv">test25</span><span class="sr">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">v...&gt;.&gt;vv&gt;
+.vv&gt;.&gt;vv..
+&gt;.&gt;&gt;v.&gt;..v
+&gt;&gt;v&gt;.&gt;.&gt;v.
+v&gt;v.vv.v..
+.&gt;&gt;.&gt;.v...
+.vv...&gt;&gt;v.
+v.v..&gt;&gt;v.v
+&gt;...v..v..
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">swim_east</span><span class="kd">←</span><span class="kt">{</span><span class="s1">&#39;.&gt;v&#39;</span><span class="sr">[</span><span class="m">1</span><span class="o">+</span><span class="p">((</span><span class="m">2</span><span class="o">×</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="o">=⊢</span><span class="p">))</span><span class="o">+</span><span class="p">(((</span><span class="m">¯1</span><span class="o">⌽</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="o">=⊢</span><span class="p">))</span><span class="o">∧</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="o">=⊢</span><span class="p">))</span><span class="o">∨</span><span class="p">(((</span><span class="s1">&#39;&gt;&#39;</span><span class="o">=⊢</span><span class="p">))</span><span class="o">∧</span><span class="p">(</span><span class="m">1</span><span class="o">⌽</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="o">≠⊢</span><span class="p">)))))</span><span class="bp">⍵</span><span class="sr">]</span><span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then the cucumbers swim south.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;.v&gt;&#39;</span><span class="sr">[</span><span class="m">1</span><span class="o">+</span><span class="p">((</span><span class="m">2</span><span class="o">×</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="o">=⊢</span><span class="p">))</span><span class="o">+</span><span class="p">(((</span><span class="m">¯1</span><span class="o">⊖</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="o">=⊢</span><span class="p">))</span><span class="o">∧</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="o">=⊢</span><span class="p">))</span><span class="o">∨</span><span class="p">(((</span><span class="s1">&#39;v&#39;</span><span class="o">=⊢</span><span class="p">))</span><span class="o">∧</span><span class="p">(</span><span class="m">1</span><span class="o">⊖</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="o">≠⊢</span><span class="p">)))))(</span><span class="nv">swim_east</span> <span class="nv">test25</span><span class="p">)</span><span class="sr">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">....&gt;.&gt;v.&gt;
+v.v&gt;.&gt;v.v.
+&gt;v&gt;&gt;..&gt;v..
+&gt;&gt;v&gt;v&gt;.&gt;.v
+.&gt;v.v...v.
+v&gt;&gt;.&gt;vvv..
+..v...&gt;&gt;..
+vv...&gt;&gt;vv.
+&gt;.v.v..v.v
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">swim_south</span><span class="kd">←</span><span class="kt">{</span><span class="s1">&#39;.v&gt;&#39;</span><span class="sr">[</span><span class="m">1</span><span class="o">+</span><span class="p">((</span><span class="m">2</span><span class="o">×</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="o">=⊢</span><span class="p">))</span><span class="o">+</span><span class="p">(((</span><span class="m">¯1</span><span class="o">⊖</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="o">=⊢</span><span class="p">))</span><span class="o">∧</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="o">=⊢</span><span class="p">))</span><span class="o">∨</span><span class="p">(((</span><span class="s1">&#39;v&#39;</span><span class="o">=⊢</span><span class="p">))</span><span class="o">∧</span><span class="p">(</span><span class="m">1</span><span class="o">⊖</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="o">≠⊢</span><span class="p">)))))</span><span class="bp">⍵</span><span class="sr">]</span><span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">swim</span><span class="kd">←</span><span class="nv">swim_south</span><span class="na">∘</span><span class="nv">swim_east</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">swim</span><span class="na">⍣</span><span class="m">58</span><span class="p">)</span> <span class="nv">test25</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">..&gt;&gt;v&gt;vv..
+..v.&gt;&gt;vv..
+..&gt;&gt;v&gt;&gt;vv.
+..&gt;&gt;&gt;&gt;&gt;vv.
+v......&gt;vv
+v&gt;v....&gt;&gt;v
+vvv.....&gt;&gt;
+&gt;vv......&gt;
+.&gt;v.vv.v..
+</span></div></div>
+</div>
+<div class="section" id="id47">
+<h3>Part 1<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h3>
+<p>How long til the cucumbers stop moving?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">day25_1</span><span class="kd">←</span><span class="kt">{</span><span class="nv">n</span><span class="kd">←</span><span class="m">0</span> <span class="p">⋄</span> <span class="nv">_</span><span class="kd">←</span><span class="p">(</span><span class="kt">{</span><span class="nv">n</span><span class="o">+</span><span class="kd">←</span><span class="m">1</span> <span class="p">⋄</span> <span class="nv">swim</span> <span class="bp">⍵</span><span class="kt">}</span><span class="na">⍣</span><span class="o">≡</span><span class="p">)</span><span class="bp">⍵</span> <span class="p">⋄</span> <span class="nv">n</span><span class="kt">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">day25_1</span> <span class="nv">test25</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">58
+</span></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-APL notranslate"><div class="highlight"><pre><span></span><span class="nv">day25_1</span> <span class="nv">data25</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span style="white-space:pre; font-family: monospace">560
+</span></div></div>
+</div>
+</div>
+<div class="section" id="id48">
+<h3>Part 2<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h3>
+<p>That’s it, there’s no more today!</p>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
+<p>APL was a weird, sometimes frustrating and occasionally beautiful
+language. It fit perfectly with this year’s deep sea adventure theme -
+I felt like I was studying an alien branch of life with totally
+different evolutionary history and constraints to the languages I’m
+used to. And when I got stuck, I was truly on my own: maybe there
+are expert user communities or something somewhere to help beginners,
+but I didn’t find them.</p>
+<p>Mostly, I used Dyalog APL as a functional or procedural language
+with some array-language spice. And when used that way, I’d rather
+just have a mainstream language with some array-spice, instead.
+With more experience, maybe I’d be able to see my way to more
+array-esque solutions. For instance, the other day I found this
+page in Dyalog’s library documentation about
+<a class="reference external" href="https://dfns.dyalog.com/n_bfs.htm">parallel graph bfs</a>.</p>
+<p>I’m probably not going to spend $200 for that special keyboard.
+But I might go on to study some more modern array languages, and
+maybe I can apply some of what I learned in my normal day-to-day!</p>
 </div>
 </div>
 
